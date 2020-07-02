@@ -1,0 +1,4 @@
+providerIdentity: Sarama
+brokerList:
+  - kafka10-01.dev1-wallet.lokal:9092
+kafkaVersion: 1.0.0.0
