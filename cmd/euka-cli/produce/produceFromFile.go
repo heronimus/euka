@@ -19,8 +19,14 @@ func FromFile(topic string, filePath string, configPath string) {
 	scanner := bufio.NewScanner(file)
 
 	var messages []string
+  messageLine := 0
 	for scanner.Scan() {
-		messages = append(messages, scanner.Text())
+		messageLine = messageLine + 1
+		if len(scanner.Text()) > 0 {
+			messages = append(messages, scanner.Text())
+		} else {
+			log.Printf("WARNING: empty line at line (%d) will be skipped.\n\n", messageLine)
+		}
 	}
 
 	err = euka.SetConfigFile(configPath)
@@ -29,7 +35,7 @@ func FromFile(topic string, filePath string, configPath string) {
   }
 	responses, _ := euka.ProduceSyncMessage(topic, messages)
 	for i, response := range responses {
-		log.Printf("Message Content : %s ...\n", messages[i][:35])
+		log.Printf("Message Content : %.80s ...\n", messages[i])
 		log.Printf("Message Stored  : topic(%s)/partition(%d)/offset(%d)\n\n", response.Topic, response.Partition, response.Offset)
 	}
 

@@ -14,6 +14,6 @@ var cliVersion = &cobra.Command{
   Short: "Print the version number of Euka-CLI",
   Long:  `All software has versions.`,
   Run: func(cmd *cobra.Command, args []string) {
-    fmt.Println("Euka-CLI v0.0.1")
+    fmt.Println("Euka-CLI v0.0.2")
   },
 }
